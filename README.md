@@ -5,7 +5,10 @@ CRISP-DM workflow + provenance (PROV-O) using BI2025 Starvers
 Authors: Somayeh Zeraati (12353396), Sandeep Kaur (12448467)  
 Course: Business Intelligence (188.429), WS 2025, TU Wien  
 Repository (URI/PID):
+
 https://github.com/madebysomi/BI2025_gr032_12353396_12448467_assignment3
+
+https://doi.org/10.5281/zenodo.18294074
 
 ---
 
