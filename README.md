@@ -1,5 +1,8 @@
 # BI2025 Assignment 3 - Group 032
 
+[![DOI](https://zenodo.org/badge/1136533907.svg)](https://doi.org/10.5281/zenodo.18294073)
+
+
 CRISP-DM workflow + provenance (PROV-O) using BI2025 Starvers
 
 Authors: Somayeh Zeraati (12353396), Sandeep Kaur (12448467)  
@@ -8,7 +11,7 @@ Repository (URI/PID):
 
 https://github.com/madebysomi/BI2025_gr032_12353396_12448467_assignment3
 
-https://doi.org/10.5281/zenodo.18294074
+https://doi.org/10.5281/zenodo.18294073
 
 ---
 
