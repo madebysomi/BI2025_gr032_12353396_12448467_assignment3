@@ -1,7 +1,6 @@
 # BI2025 Assignment 3 - Group 032
 
-[![DOI](https://zenodo.org/badge/1136533907.svg)](https://doi.org/10.5281/zenodo.18294073)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18294073.svg)](https://doi.org/10.5281/zenodo.18294073)
 
 CRISP-DM workflow + provenance (PROV-O) using BI2025 Starvers
 
