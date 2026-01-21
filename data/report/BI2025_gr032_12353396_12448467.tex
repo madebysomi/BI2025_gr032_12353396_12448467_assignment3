@@ -4,17 +4,18 @@
 \setcopyright{acmlicensed}
 \copyrightyear{2025}
 \acmYear{2025}
-\acmDOI{XXXXXXX.XXXXXXX}
+\acmDOI{10.5281/zenodo.18294073}
 
-\acmConference[BI 2025]{Business Intelligence}{-}{-}
+\acmConference[BI 2025]{Business Intelligence}{December 2025}{Vienna, Austria}
 
 \usepackage{booktabs}
 \usepackage{placeins}
+\usepackage{float}
 
 \begin{document}
 
 \title{BI2025 Experiment Report - Group 032}
-%% ---Authors: Dynamically added ---
+%% --- Authors ---
 
           \author{Somayeh Zeraati}
           \authornote{Student A, Matr.Nr.: 12353396}
@@ -100,49 +101,7 @@ Table~\ref{tab:features} provides the complete feature specification with attrib
   \item \textbf{Bias Detection:} Recognizing protected attributes and proxy variables that may introduce discrimination
 \end{enumerate}
 
-\begin{table*}[!t]
-  \caption{Complete Feature Specification: Attribute Types, Units, and Semantics}
-  \label{tab:features}
-  \small
-  \begin{tabular}{p{0.18\linewidth}p{0.10\linewidth}p{0.08\linewidth}p{0.48\linewidth}}
-    \toprule
-    \textbf{Feature Name} & \textbf{Data Type} & \textbf{Unit} & \textbf{Semantic Description} \\
-    \midrule
-    balcony & boolean & - & Whether apartment has a balcony or terrace (1=yes, 0=no) \\
-    baseRent & double & EUR & Base rent in Euros (Kaltmiete, cold rent excluding utilities) \\
-    cellar & boolean & - & Basement/cellar storage available (1=yes, 0=no) \\
-    condition & string & - & Condition/quality of the apartment (categorical: first\_time\_use, mint\_condition, refurbished, etc.) \\
-    energyEfficiencyClass & string & - & Energy efficiency class rating (A+ to H, German EnEV standard) \\
-    firingTypes & string & - & Energy source for heating (categorical: oil, gas, solar, district\_heating, etc.) \\
-    floor & integer & - & Floor level of the apartment (0=ground floor, negative=basement) \\
-    garden & boolean & - & Garden or yard access (1=yes, 0=no) \\
-    geo\_plz & integer & - & German postal code (5-digit ZIP code for location) \\
-    hasKitchen & boolean & - & Whether apartment has a built-in kitchen (1=yes, 0=no) \\
-    heatingCosts & double & EUR & Monthly heating costs \\
-    heatingType & string & - & Type of heating system (categorical: central, floor, self\_contained, etc.) \\
-    interiorQual & string & - & Interior quality rating (categorical: simple, normal, sophisticated, luxury) \\
-    lastRefurbish & integer & - & Year of last major refurbishment/renovation \\
-    lift & boolean & - & Whether building has an elevator (1=yes, 0=no) \\
-    livingSpace & double & m² & Living space area of the apartment \\
-    newlyConst & boolean & - & Indicator for newly constructed property (1=yes, 0=no) \\
-    noParkSpaces & integer & - & Number of parking spaces available \\
-    noRooms & double & - & Number of rooms (including bedrooms, living room, etc.) \\
-    numberOfFloors & integer & - & Total number of floors in the building \\
-    petsAllowed & string & - & Whether pets are allowed (1=yes, 0=no, categorical) \\
-    regio1 & string & - & German federal state (Bundesland) \\
-    regio2 & string & - & Regional subdivision level 2 (district/Kreis) \\
-    regio3 & string & - & Regional subdivision level 3 (municipality/Gemeinde) \\
-    scoutId & string & - & Unique listing identifier in Immoscout24 platform \\
-    serviceCharge & double & EUR & Monthly service charge for building maintenance \\
-    thermalChar & double & kWh/m²/year & Thermal characteristics value (kWh/m²/year) \\
-    totalRent & double & EUR & Total monthly rent in Euros (Warmmiete = base + service + heating) \\
-    typeOfFlat & string & - & Type of apartment (categorical: apartment, loft, maisonette, penthouse, etc.) \\
-    yearConstructed & integer & - & Year when the building was constructed \\
-    \bottomrule
-  \end{tabular}
-\end{table*}
-
-\FloatBarrier
+\textbf{See Table~\ref{tab:features} in Appendix.}
 
 \subsubsection{Data Type Distribution}
 The 49 features comprise the following type distribution:
@@ -229,14 +188,7 @@ Figure~\ref{fig:missing} quantifies the top 10 features with highest missing val
 \textbf{Missingness as a Feature:}
 The bar chart reveals that missingness itself follows interpretable patterns: luxury/detailed listings have complete data, while budget/simple listings often omit optional fields. We leverage this by creating binary "has\_[feature]\_info" indicators, which may correlate with listing quality, landlord professionalism, and ultimately rent levels.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.95\linewidth]{missing_values_top10.png}
-  \caption{Top 10 features by missing value rate. Horizontal bars show percentage of missing values, with exact percentages labeled. Three distinct clusters emerge: digital services (>80\%), energy certificates (~70\%), and comfort features (40-65\%). This informs our imputation strategy and feature engineering decisions.}
-  \label{fig:missing}
-\end{figure}
-
-\FloatBarrier
+\textbf{See Figure~\ref{fig:missing} in Appendix.}
 
 \subsection{Visual Exploration}
 Visual analysis was conducted through systematic examination of feature distributions and inter-feature relationships. This exploratory phase is critical for understanding data structure, identifying potential modeling challenges, and informing preprocessing decisions. Two complementary visualization approaches were employed:
@@ -281,14 +233,8 @@ The correlation analysis reveals several features with r > 0.7, indicating poten
   \item \textbf{Regularization Awareness:} For final modeling, we plan to use Ridge or Lasso regression, which inherently handle multicollinearity through coefficient shrinkage, making perfect decorrelation unnecessary.
 \end{enumerate}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\linewidth]{correlation_heatmap.png}
-  \caption{Correlation heatmap of numeric features. Strong correlations (r > 0.7) are visible in darker shades between rent components (baseRent-totalRent), size metrics (livingSpace-noRooms), and range features with their base counterparts. Moderate correlations (0.4 < r < 0.7) between size and rent variables inform feature engineering decisions.}
-  \label{fig:correlation}
-\end{figure}
+\textbf{See Figure~\ref{fig:correlation} in Appendix.}
 
-\FloatBarrier
 
 \subsubsection{Geographic Rent Variation}
 Figure~\ref{fig:boxplot} presents the distribution of rent per square meter (EUR/m²) across the top 8 German federal states by listing count. This geographic analysis is critical for understanding regional market dynamics and identifying potential location-based bias in our dataset.
@@ -315,14 +261,8 @@ Figure~\ref{fig:boxplot} presents the distribution of rent per square meter (EUR
   \item \textbf{Feature Engineering:} Consider creating region-specific features (e.g., distance to city center within each state) to capture intra-regional variation.
 \end{enumerate}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.95\linewidth]{rent_per_sqm_by_region.png}
-  \caption{Boxplot showing distribution of rent per m² across top 8 German federal states (ordered by median rent). Berlin commands highest rents (median 15.66 EUR/m²), while eastern states (Sachsen, Sachsen-Anhalt) show lowest rents (~7.9 EUR/m²). Box represents IQR (25th-75th percentile), whiskers extend to 1.5×IQR, outliers plotted individually. Sample sizes range from 9k (Berlin) to 52k (Sachsen).}
-  \label{fig:boxplot}
-\end{figure}
+\textbf{See Figure~\ref{fig:boxplot} in Appendix.}
 
-\FloatBarrier
 
 \subsubsection{Distribution Analysis}
 Figure~\ref{fig:distributions} presents histograms of key numeric features to understand their distributional properties. Distribution shape directly impacts modeling decisions: (1) skewed distributions may benefit from transformation, (2) outliers require special treatment, and (3) modal patterns reveal natural groupings in the data.
@@ -372,14 +312,8 @@ Figure~\ref{fig:distributions} presents histograms of key numeric features to un
   \item \textbf{Heterogeneity Awareness:} The multimodal nature of noRooms and bimodal pattern in livingSpace suggest the dataset contains distinct property types (studios, standard apartments, luxury properties) that may benefit from segmented modeling or interaction terms with property type.
 \end{enumerate}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\linewidth]{distribution_analysis.png}
-  \caption{Distribution histograms of key numeric features (totalRent, baseRent, livingSpace, noRooms) revealing characteristic right-skewed patterns typical of real estate markets. Modal peaks in noRooms (at 2, 3, 4 rooms) reflect standard German apartment configurations. Extreme outliers identified in initial data quality assessment have been capped, but distributions remain positively skewed, motivating log transformation for modeling.}
-  \label{fig:distributions}
-\end{figure}
+\textbf{See Figure~\ref{fig:distributions} in Appendix.}
 
-\FloatBarrier
 
 \subsubsection{Size-Rent Relationship Analysis}
 Figure~\ref{fig:scatter} presents a detailed examination of the fundamental relationship between living space and rent through scatter plot analysis with fitted trend lines.
@@ -416,14 +350,8 @@ Variance increases with livingSpace (funnel shape). Small apartments cluster tig
 
 The scatter plot shows a random sample of 5,000 listings (of 268k total) to avoid overplotting while maintaining pattern visibility. The high Pearson r (0.754) on this sample is consistent with full-dataset correlation analysis, confirming sample representativeness.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.95\linewidth]{scatter_livingspace_vs_rent.png}
-  \caption{Scatter plot of livingSpace vs log-transformed totalRent (sample of 5,000 listings). Red line shows linear regression trend (R²=0.568), green dashed line shows local smooth curve revealing non-linear patterns. Heteroscedasticity visible as variance increases with size. Points semi-transparent to show density. Statistics box shows strong correlation (r=0.754, p<0.001) with slope indicating ~1.33\% rent increase per m².}
-  \label{fig:scatter}
-\end{figure}
+\textbf{See Figure~\ref{fig:scatter} in Appendix.}
 
-\FloatBarrier
 
 \subsection{Summary of Data Understanding Insights}
 Integration of feature specification, missing data analysis, and visual exploration yields the following key insights that directly inform our data preparation strategy:
@@ -785,41 +713,14 @@ The prepared dataset is ready for modeling with:
 \subsection{Algorithm Selection and Comparison}
 Following the CRISP-DM methodology, we evaluated four regression algorithms to identify the best performer for our fair rent prediction task. All algorithms were trained on 70\% of data (159,667 samples) and evaluated on the 15\% validation set (34,215 samples) with default parameters.
 
-\begin{table}[h]
-  \caption{Algorithm Comparison - Default Parameters}
-  \label{tab:algo_comparison}
-  \begin{tabular}{lrrrrl}
-    \toprule
-    \textbf{Algorithm} & \textbf{RMSE} & \textbf{MAE} & \textbf{R²} & \textbf{Time (s)} & \\
-    \midrule
-    XGBoost & 0.1540 & 0.1021 & 0.9141 & 1.30 $\star$ \\
-    LightGBM & 0.1591 & 0.1070 & 0.9083 & 1.60 \\
-    Random Forest & 0.1599 & 0.1032 & 0.9075 & 76.15 \\
-    Ridge Regression & 0.2204 & 0.1579 & 0.8242 & 0.22 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+\textbf{See Table~\ref{tab:algo_comparison} in Appendix.}
 
 \textbf{Selection Rationale:} XGBoost achieved the best performance with excellent training efficiency. This algorithm was selected for hyperparameter tuning due to its superior accuracy and scalability, making it ideal for production deployment where the Fair Rent Auditor needs to process thousands of listings daily.
 
 \subsection{Hyperparameter Configuration}
 After identifying XGBoost as the best performer, we conducted systematic hyperparameter tuning using GridSearchCV with 3-fold cross-validation. The final optimized model uses the following hyperparameter settings:
 
-\begin{table}[h]
-  \caption{XGBoost Hyperparameter Settings}
-  \label{tab:hyperparams}
-  \begin{tabular}{lp{0.5\linewidth}l}
-    \toprule
-    \textbf{Parameter} & \textbf{Description} & \textbf{Value} \\
-    \midrule
-    learning\_rate & Step size shrinkage to prevent overfitting & 0.15 \\
-    max\_depth & Maximum depth of each tree & 8 \\
-    n\_estimators & Number of boosting rounds (trees) & 300 \\
-    objective & Loss function (MSE for regression) & reg:squarederror \\
-    random\_state & Seed for reproducibility & 42 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+\textbf{See Table~\ref{tab:hyperparams} in Appendix.}
 
 \textbf{Hyperparameter Tuning Results:}
 \begin{itemize}
@@ -837,7 +738,7 @@ The final model was retrained on the combined training and validation sets (193,
     \item \textbf{Training Dataset:} 193,882 samples (Train 70\% + Validation 15\%)
     \item \textbf{Features:} 123 features (after removing rent-related columns to prevent data leakage)
     \item \textbf{Target Variable:} totalRent\_log (log-transformed total rent)
-    \item \textbf{Training Time:} 5.36 seconds
+    \item \textbf{Training Time:} 4.96 seconds
 \end{itemize}
 
 \textbf{Model Performance:}
@@ -865,14 +766,8 @@ Figure~\ref{fig:phase4_performance} presents a comprehensive analysis of the tun
     \item \textbf{Model Comparison Summary:} Bar chart comparing all evaluated algorithms, highlighting XGBoost's superior performance. The 8.31\% improvement from default to tuned parameters demonstrates the value of systematic hyperparameter optimization.
 \end{enumerate}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{phase4_model_performance.png}
-  \caption{Comprehensive XGBoost model performance analysis. Six diagnostic plots validate model quality: (1) successful hyperparameter tuning, (2) strong prediction accuracy (R² = 0.927819), (3) unbiased residuals, (4) normally distributed errors, (5) interpretable feature importance aligned with domain knowledge, and (6) best-in-class performance compared to alternative algorithms.}
-  \label{fig:phase4_performance}
-\end{figure}
+\textbf{See Figure~\ref{fig:phase4_performance} in Appendix.}
 
-\FloatBarrier
 
 \subsection{Data Leakage Prevention}
 During model development, we identified and corrected a severe data leakage issue where the feature set inadvertently included 6 rent-related columns (totalRent, baseRent, serviceCharge, heatingCosts, rent\_per\_sqm, totalRent\_log) that directly reveal or are derived from the target variable. All 6 columns were dropped before train/validation/test split, reducing feature count from 129 to 123. This correction ensured the model learns genuine property-to-rent relationships rather than copying existing rent values.
@@ -892,20 +787,7 @@ Our XGBoost model was evaluated on the held-out test set (34,215 samples, 15\% o
 \end{itemize}
 
 \textbf{Comparison with Training/Validation:}
-\begin{table}[h]
-    \centering
-    \caption{Performance across Train/Val/Test splits}
-    \begin{tabular}{lccc}
-        \toprule
-        \textbf{Metric} & \textbf{Training} & \textbf{Validation} & \textbf{Test} \\\\
-        \midrule
-        RMSE & 0.094292 & 0.141219 & 0.142156 \\\\
-        MAE & 0.068825 & 0.089859 & 0.089765 \\\\
-        R² & 0.967921 & 0.927819 & 0.927602 \\\\
-        \bottomrule
-    \end{tabular}
-    \label{tab:test_performance}
-\end{table}
+\textbf{See Table~\ref{tab:test_performance} in Appendix.}
 
 The test performance is consistent with validation results (R² degradation < 1\%), indicating excellent generalization. With an average absolute error of €73.27 per month, the model meets the accuracy requirements for the Fair Rent Auditor use case.
 
@@ -926,7 +808,7 @@ We compared our model against state-of-the-art results from academic literature 
 \begin{itemize}
     \item \textbf{Kaggle Best (Immoscout24 data):} R² = 0.85-0.91 (gradient boosting)
     \item \textbf{Academic Research (Brunauer et al., Schulz et al.):} R² = 0.82-0.88
-    \item \textbf{Our XGBoost:} R² = 0.927602 \textbf{✓ Competitive/Superior}
+    \item \textbf{Our XGBoost:} R² = 0.927602 \textbf{ Competitive/Superior}
 \end{itemize}
 
 Our model performs competitively with or exceeds reported benchmarks from the literature, validating our CRISP-DM approach for German rental market prediction. The performance is particularly notable given the real-world data quality challenges inherent in the Immoscout24 dataset.
@@ -934,26 +816,13 @@ Our model performs competitively with or exceeds reported benchmarks from the li
 \subsection{Success Criteria Validation}
 We validated our model against the three data mining success criteria defined in Phase 1 (Business Understanding):
 
-\begin{table}[h]
-    \centering
-    \caption{Data Mining Success Criteria - Validation Results}
-    \begin{tabular}{p{4cm}ccp{1.5cm}}
-        \toprule
-        \textbf{Criterion} & \textbf{Target} & \textbf{Actual} & \textbf{Status} \\\\
-        \midrule
-        1. MAE (EUR/month) & €100 & €73.27 & PASS \\\\
-        2. R² Score & 0.80 & 0.927602 & PASS \\\\
-        3. Train-Val RMSE Diff & 0.1\% & 49.77\% & FAIL \\\\
-        \bottomrule
-    \end{tabular}
-    \label{tab:success_criteria}
-\end{table}
+\textbf{See Table~\ref{tab:success_criteria} in Appendix.}
 
 \textbf{Analysis:}
 \begin{itemize}
-    \item \textbf{Criterion 1 (MAE < €100):} ✓ PASS - Average error of €73.27 is well below the threshold, ensuring predictions are accurate enough for fair rent assessment in the target use case.
-    \item \textbf{Criterion 2 (R² > 0.80):} ✓ PASS - Model explains 0.927602 of variance, demonstrating strong predictive power that exceeds the minimum business requirement.
-    \item \textbf{Criterion 3 (RMSE diff < 5\%):} ✗ FAIL - Train-validation RMSE difference is 49.77\%, exceeding the strict 5\% threshold. However, this is expected for log-transformed targets with complex ensemble models like XGBoost. The absolute test performance remains excellent and consistent with validation (R² degradation < 1\%), indicating the criterion threshold may be too strict for this context.
+    \item \textbf{Criterion 1 (MAE < €100):}  PASS - Average error of €73.27 is well below the threshold, ensuring predictions are accurate enough for fair rent assessment in the target use case.
+    \item \textbf{Criterion 2 (R² > 0.80):}  PASS - Model explains 0.927602 of variance, demonstrating strong predictive power that exceeds the minimum business requirement.
+    \item \textbf{Criterion 3 (RMSE diff < 5\%):}  FAIL - Train-validation RMSE difference is 49.77\%, exceeding the strict 5\% threshold. However, this is expected for log-transformed targets with complex ensemble models like XGBoost. The absolute test performance remains excellent and consistent with validation (R² degradation < 1\%), indicating the criterion threshold may be too strict for this context.
 \end{itemize}
 
 \textbf{Overall Assessment:} 2/3 criteria met. The failed generalization criterion does not indicate overfitting, as test set performance is consistent with validation. The strict 5\% threshold may need adjustment for log-scale metrics in future iterations.
@@ -974,19 +843,13 @@ We evaluated model fairness across federal states (regio1), a protected attribut
     \item \textbf{Systematic Bias:} None detected
     \item \textbf{Best Performing Region:} Sachsen (RMSE: 0.1037)
     \item \textbf{Worst Performing Region:} Niedersachsen (RMSE: 0.2100)
-    \item \textbf{Fairness Assessment:} ✓ PASS - The model demonstrates equitable performance across geographic regions
+    \item \textbf{Fairness Assessment:}  PASS - The model demonstrates equitable performance across geographic regions
 \end{itemize}
 
 Figure~\ref{fig:bias} presents a comprehensive analysis of model performance across federal states, showing RMSE distribution, systematic bias detection (mean residuals), prediction errors in EUR scale, and model fit (R²) for each region.
 
-\begin{figure*}[h]
-    \centering
-    \includegraphics[width=0.95\linewidth]{phase5_bias_analysis.png}
-    \caption{Bias Analysis: Model performance across 16 German federal states. Top-left: RMSE by region showing moderate variance (std=0.030). Top-right: Systematic bias detection via mean residuals - all regions within ±0.05 threshold, confirming no systematic under/over-prediction. Bottom-left: MAE in EUR showing regional price differences (best: Sachsen, worst: Niedersachsen). Bottom-right: R² scores demonstrating consistent model fit across regions (0.88-0.95).}
-    \label{fig:bias}
-\end{figure*}
+\textbf{See Figure~\ref{fig:bias} in Appendix.}
 
-\FloatBarrier
 
 \textbf{Deployment Implications:} The Fair Rent Auditor can be deployed across all federal states without fairness concerns. The model does not systematically disadvantage any geographic region, ensuring equitable treatment of tenants and landlords regardless of location. The moderate performance variance (RMSE std=0.030) is acceptable and likely reflects genuine regional differences in rental market complexity rather than algorithmic bias.
 
@@ -1006,7 +869,7 @@ We evaluated the model against predefined business success criteria established 
 \textbf{Results:}
 \begin{itemize}
     \item \textbf{Overpriced Listings Detected:} 5,958 (17.41\% of test set)
-    \item \textbf{Status:} ✓ PASS - Target exceeded (17.41\% > 15\%)
+    \item \textbf{Status:}  PASS - Target exceeded (17.41\% > 15\%)
     \item \textbf{Regional Breakdown (Top 5):}
     \begin{enumerate}
         \item Nordrhein-Westfalen: 1,419 listings (18.4\% of state)
@@ -1023,7 +886,7 @@ We evaluated the model against predefined business success criteria established 
 
 \textbf{Results:}
 \begin{itemize}
-    \item \textbf{Status:} ✓ PASS - Feature importance documented in Phase 4
+    \item \textbf{Status:}  PASS - Feature importance documented in Phase 4
     \item \textbf{Top 5 Most Important Features:} 10, 30, 3, 89, 34
     \item \textbf{Explainability Strategy:} Agents can provide clear explanations such as "This listing is overpriced because livingSpace is 20\% below comparable properties" or "The lack of hasKitchen reduces expected value by approximately €50/month"
     \item \textbf{Implementation:} Feature importance rankings enable data-driven consulting and transparent decision-making for the Fair Rent Auditor system
@@ -1034,7 +897,7 @@ We evaluated the model against predefined business success criteria established 
 
 \textbf{Results:}
 \begin{itemize}
-    \item \textbf{Status:} ✓ PASS - Robust performance across all regions
+    \item \textbf{Status:}  PASS - Robust performance across all regions
     \item \textbf{Major Hubs (Berlin, Bayern, Hamburg, Hessen):}
     \begin{itemize}
         \item RMSE: 0.159 (log scale)
@@ -1058,7 +921,7 @@ Beyond technical success criteria, we evaluated alignment with strategic busines
     \item Average prediction error of €73.27/month enables accurate rent negotiation
     \item 17.4\% of listings flagged for potential 10\% rent reduction
     \item Potential client savings: ~€150-200/month on overpriced listings
-    \item \textbf{Status:} ✓ ACHIEVED
+    \item \textbf{Status:}  ACHIEVED
 \end{itemize}
 
 \textbf{2. Scalable Market Screening:}
@@ -1066,7 +929,7 @@ Beyond technical success criteria, we evaluated alignment with strategic busines
     \item Prediction time: ~1ms per listing (XGBoost inference)
     \item Can process 1,000+ listings per minute
     \item Top 20\% most overpriced listings easily flagged for manual review
-    \item \textbf{Status:} ✓ ACHIEVED
+    \item \textbf{Status:}  ACHIEVED
 \end{itemize}
 
 \textbf{3. Feature Value Quantification:}
@@ -1074,7 +937,7 @@ Beyond technical success criteria, we evaluated alignment with strategic busines
     \item Feature importance quantifies amenity contributions (e.g., balcony, hasKitchen)
     \item Regional coefficients available via regio1 encoding
     \item Enables data-driven consulting: "Adding a balcony increases rent by X\% in Munich"
-    \item \textbf{Status:} ✓ ACHIEVED
+    \item \textbf{Status:}  ACHIEVED
 \end{itemize}
 
 \textbf{Overall Assessment:} \textbf{3/3 Business Criteria Met - DEPLOYMENT READY}
@@ -1105,9 +968,9 @@ Based on performance analysis, we recommend a \textbf{hybrid human-AI system} th
 
 \textbf{Regional Deployment:}
 \begin{itemize}
-    \item ✓ Deploy nationwide - Phase 5e bias analysis confirmed no systematic regional bias
-    \item ✓ Use region-specific confidence intervals for predictions
-    \item ⚠ Monitor performance drift in rural areas with smaller sample sizes
+    \item  Deploy nationwide - Phase 5e bias analysis confirmed no systematic regional bias
+    \item  Use region-specific confidence intervals for predictions
+    \item  Monitor performance drift in rural areas with smaller sample sizes
 \end{itemize}
 
 \subsection{Ethical Impact Assessment}
@@ -1156,7 +1019,7 @@ We assessed and mitigated three primary AI risks identified in Phase 1:
         \item Predictions provided as ranges, not exact values
         \item GDPR Article 22: Human oversight required for automated decisions (ensured via hybrid deployment)
     \end{itemize}
-    \item \textbf{Status:} ✓ GDPR compliant with hybrid human-in-loop protocol
+    \item \textbf{Status:}  GDPR compliant with hybrid human-in-loop protocol
 \end{itemize}
 
 \subsubsection{Protected Attribute Sensitivity (Phase 2.e Linkage)}
@@ -1166,10 +1029,10 @@ We evaluated fairness on regio1 (federal state), a protected attribute due to hi
 \begin{itemize}
     \item \textbf{Regions Analyzed:} 16 federal states
     \item \textbf{Performance Variance:} Moderate (RMSE std = 0.0299)
-    \item \textbf{Systematic Bias:} ✓ NO SYSTEMATIC BIAS DETECTED: All regions have mean residuals within acceptable range (|residual| < 0.05)
+    \item \textbf{Systematic Bias:}  NO SYSTEMATIC BIAS DETECTED: All regions have mean residuals within acceptable range (|residual| < 0.05)
     \item \textbf{Best Performing:} Sachsen (RMSE: €0.10)
     \item \textbf{Worst Performing:} Niedersachsen (RMSE: €0.21)
-    \item \textbf{Fairness Assessment:} ✓ PASS - The model demonstrates equitable performance across geographic regions
+    \item \textbf{Fairness Assessment:}  PASS - The model demonstrates equitable performance across geographic regions
 \end{itemize}
 
 \textbf{Deployment Implication:} No corrective measures needed - Fair Rent Auditor can be deployed across all states without ethical concerns. Model does not systematically disadvantage any geographic region.
@@ -1200,25 +1063,25 @@ We evaluated fairness on regio1 (federal state), a protected attribute due to hi
 \subsubsection{Regulatory Compliance}
 \textbf{GDPR (General Data Protection Regulation):}
 \begin{itemize}
-    \item ✓ No personal data processed
-    \item ✓ Article 22: Human oversight ensured (hybrid deployment)
-    \item ✓ Data minimization: Only necessary features used
-    \item ⚠ Right to explanation: Agents must provide reasoning for decisions
+    \item  No personal data processed
+    \item  Article 22: Human oversight ensured (hybrid deployment)
+    \item  Data minimization: Only necessary features used
+    \item  Right to explanation: Agents must provide reasoning for decisions
 \end{itemize}
 
 \textbf{German Rental Law (Mietpreisbremse):}
 \begin{itemize}
-    \item ✓ Predictions align with "ortsübliche Vergleichsmiete" concept
-    \item ✓ Can be used to challenge excessive rent increases
-    \item ⚠ Legal standing unclear - model not official benchmark
+    \item  Predictions align with "ortsübliche Vergleichsmiete" concept
+    \item  Can be used to challenge excessive rent increases
+    \item  Legal standing unclear - model not official benchmark
 \end{itemize}
 
 \textbf{EU AI Act (Regulation 2024/1689):}
 \begin{itemize}
     \item Risk Level: \textbf{LIMITED RISK} (not high-risk application)
-    \item ✓ Transparency requirements met (explainable predictions)
-    \item ✓ Human oversight ensured
-    \item ⚠ Monitor for reclassification if deployment scope expands
+    \item  Transparency requirements met (explainable predictions)
+    \item  Human oversight ensured
+    \item  Monitor for reclassification if deployment scope expands
 \end{itemize}
 
 \subsection{Monitoring Strategy \& Intervention Triggers}
@@ -1328,23 +1191,23 @@ We evaluated the reproducibility of our experiment to ensure scientific rigor an
 
 \subsubsection{Well-Documented Aspects (Strengths)}
 \begin{itemize}
-    \item ✓ \textbf{CRISP-DM Alignment:} All 6 phases fully documented with clear transitions
-    \item ✓ \textbf{PROV-O Provenance:} Comprehensive knowledge graph tracking data lineage, transformations, and model decisions (stored in StarVers triple store)
-    \item ✓ \textbf{Data Preparation Pipeline:} 7-step pipeline with explicit preprocessing decisions (outlier treatment, imputation, encoding)
-    \item ✓ \textbf{Hyperparameter Settings:} GridSearchCV configuration, parameter ranges, and best values fully specified
-    \item ✓ \textbf{Evaluation Metrics:} Consistent metrics (RMSE, MAE, R²) across train/val/test with clear interpretation
-    \item ✓ \textbf{Bias Analysis Methodology:} Protected attribute selection, fairness thresholds, and regional performance assessment well-defined
+    \item  \textbf{CRISP-DM Alignment:} All 6 phases fully documented with clear transitions
+    \item  \textbf{PROV-O Provenance:} Comprehensive knowledge graph tracking data lineage, transformations, and model decisions (stored in StarVers triple store)
+    \item  \textbf{Data Preparation Pipeline:} 7-step pipeline with explicit preprocessing decisions (outlier treatment, imputation, encoding)
+    \item  \textbf{Hyperparameter Settings:} GridSearchCV configuration, parameter ranges, and best values fully specified
+    \item  \textbf{Evaluation Metrics:} Consistent metrics (RMSE, MAE, R²) across train/val/test with clear interpretation
+    \item  \textbf{Bias Analysis Methodology:} Protected attribute selection, fairness thresholds, and regional performance assessment well-defined
 \end{itemize}
 
 \subsubsection{Reproducibility Risks \& Gaps (Weaknesses)}
 \begin{itemize}
-    \item ⚠ \textbf{Random State Control:} While random\_state=42 used for train/test split and model training, some intermediate steps (e.g., sampling for visualizations) may not have fixed seeds
-    \item ⚠ \textbf{Library Version Pinning:} requirements.txt lists major libraries (pandas, sklearn, xgboost) but not exact versions - minor version differences could affect results
-    \item ⚠ \textbf{Data Source Timestamp:} Immoscout24 dataset from 2016-2019, but exact scraping dates not recorded - temporal variations may affect replication
-    \item ⚠ \textbf{Imputation Order Dependency:} Median/mode imputation applied sequentially, but order not explicitly documented - could affect final values if features have interdependencies
-    \item ⚠ \textbf{Feature Engineering Logic:} Derived features (rent\_per\_sqm, building\_age) have clear formulas, but some transformations (e.g., range binning thresholds) are implicit
-    \item ⚠ \textbf{Hardware Environment:} Training time reported (5.36s), but CPU/GPU specs not documented - performance benchmarks may vary
-    \item ⚠ \textbf{Data Leakage Fix Timing:} Data leakage discovered and corrected post-hoc - initial experiments (not reported) may have inflated results
+    \item  \textbf{Random State Control:} While random\_state=42 used for train/test split and model training, some intermediate steps (e.g., sampling for visualizations) may not have fixed seeds
+    \item  \textbf{Library Version Pinning:} requirements.txt lists major libraries (pandas, sklearn, xgboost) but not exact versions - minor version differences could affect results
+    \item  \textbf{Data Source Timestamp:} Immoscout24 dataset from 2016-2019, but exact scraping dates not recorded - temporal variations may affect replication
+    \item  \textbf{Imputation Order Dependency:} Median/mode imputation applied sequentially, but order not explicitly documented - could affect final values if features have interdependencies
+    \item  \textbf{Feature Engineering Logic:} Derived features (rent\_per\_sqm, building\_age) have clear formulas, but some transformations (e.g., range binning thresholds) are implicit
+    \item  \textbf{Hardware Environment:} Training time reported (4.96s), but CPU/GPU specs not documented - performance benchmarks may vary
+    \item  \textbf{Data Leakage Fix Timing:} Data leakage discovered and corrected post-hoc - initial experiments (not reported) may have inflated results
 \end{itemize}
 
 \subsubsection{Recommendations for Reproducibility Improvement}
@@ -1384,23 +1247,23 @@ The project demonstrates strong reproducibility practices (CRISP-DM structure, P
 
 \subsection{Deployment Readiness Summary}
 
-\textbf{Final Recommendation: ✓ APPROVED FOR PRODUCTION DEPLOYMENT}
+\textbf{Final Recommendation: APPROVED FOR PRODUCTION DEPLOYMENT}
 
 \textbf{Strengths:}
 \begin{itemize}
-    \item ✓ All 3 business success criteria met (overpricing detection 17.4\%, interpretability achieved, robust coverage)
-    \item ✓ No systematic regional bias detected (ethical deployment approved)
-    \item ✓ Comprehensive monitoring framework with 5 intervention triggers
-    \item ✓ Hybrid human-AI system balances automation (70\%) with oversight (30\%)
-    \item ✓ Regulatory compliance (GDPR, German rental law, EU AI Act Limited Risk)
+    \item  All 3 business success criteria met (overpricing detection 17.4\%, interpretability achieved, robust coverage)
+    \item  No systematic regional bias detected (ethical deployment approved)
+    \item  Comprehensive monitoring framework with 5 intervention triggers
+    \item  Hybrid human-AI system balances automation (70\%) with oversight (30\%)
+    \item  Regulatory compliance (GDPR, German rental law, EU AI Act Limited Risk)
 \end{itemize}
 
 \textbf{Conditions for Deployment:}
 \begin{itemize}
-    \item ⚠ Implement quarterly bias audits (monitor regio1 performance drift)
-    \item ⚠ Agent training program required (explainability protocols, override procedures)
-    \item ⚠ 6-month retraining cycle mandatory (market dynamics adaptation)
-    \item ⚠ Establish agent feedback mechanism (satisfaction surveys, override tracking)
+    \item  Implement quarterly bias audits (monitor regio1 performance drift)
+    \item  Agent training program required (explainability protocols, override procedures)
+    \item  6-month retraining cycle mandatory (market dynamics adaptation)
+    \item  Establish agent feedback mechanism (satisfaction surveys, override tracking)
 \end{itemize}
 
 \textbf{Next Steps:}
@@ -1626,5 +1489,203 @@ With these conditions met, the Fair Rent Auditor represents a responsible, effec
 This work was developed as part of the Business Intelligence course at TU Wien. We thank the course instructors for guidance on CRISP-DM methodology and PROV-O provenance modeling. The Immoscout24 dataset, while presenting significant data quality challenges, provided a realistic testbed for applied machine learning. All code, documentation, and provenance metadata are available for reproducibility verification.
 
 \textbf{Group 032 — Students stud-id_12353396 and stud-id_12448467}
+
+%% --- Appendix ---
+\clearpage
+\onecolumn
+\raggedbottom
+
+\setlength{\intextsep}{0.3cm}
+
+\appendix
+\section{Figures and Tables}
+
+This appendix contains all figures and tables referenced in the main report.
+
+\subsection{Figures}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{missing_values_top10.png}
+  \caption{Top 10 features by missing value rate. Horizontal bars show percentage of missing values, with exact percentages labeled. Three distinct clusters emerge: digital services (>80\%), energy certificates (~70\%), and comfort features (40-65\%). This informs our imputation strategy and feature engineering decisions.}
+  \Description{Bar chart showing missing value percentages for ten features. telekomHybridUploadSpeed is highest at 83 percent, followed by electricity prices. Energy efficiency class and last refurbish date are around 70 percent. Comfort features like heating costs and pets allowed range from 40 to 65 percent.}
+  \label{fig:missing}
+\end{figure}
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{correlation_heatmap.png}
+  \caption{Correlation heatmap of numeric features. Strong correlations (r > 0.7) are visible in darker shades between rent components (baseRent-totalRent), size metrics (livingSpace-noRooms), and range features with their base counterparts. Moderate correlations (0.4 < r < 0.7) between size and rent variables inform feature engineering decisions.}
+  \Description{Correlation matrix heatmap displaying Pearson correlation coefficients between numeric variables. Dark red indicates strong positive correlation, while dark blue indicates strong negative correlation. Diagonal elements are all 1. High correlation is observed between totalRent and baseRent, and between livingSpace and noRooms.}
+  \label{fig:correlation}
+\end{figure}
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{rent_per_sqm_by_region.png}
+  \caption{Boxplot showing distribution of rent per m² across top 8 German federal states (ordered by median rent). Berlin commands highest rents (median 15.66 EUR/m²), while eastern states (Sachsen, Sachsen-Anhalt) show lowest rents (~7.9 EUR/m²). Box represents IQR (25th-75th percentile), whiskers extend to 1.5×IQR, outliers plotted individually. Sample sizes range from 9k (Berlin) to 52k (Sachsen).}
+  \Description{Boxplot comparing rent per square meter across eight German states. Berlin has the highest median rent, followed by Hessen and Bavaria. Saxony and Saxony-Anhalt have the lowest median rents. The spread of data is wider in expensive regions like Berlin compared to cheaper regions.}
+  \label{fig:boxplot}
+\end{figure}
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{distribution_analysis.png}
+  \caption{Distribution histograms of key numeric features (totalRent, baseRent, livingSpace, noRooms) revealing characteristic right-skewed patterns typical of real estate markets. Modal peaks in noRooms (at 2, 3, 4 rooms) reflect standard German apartment configurations. Extreme outliers identified in initial data quality assessment have been capped, but distributions remain positively skewed, motivating log transformation for modeling.}
+  \Description{Set of four histograms showing distributions. Total rent and base rent show a strong right skew with a long tail. Living space is also right-skewed but more bell-shaped around 60-80 square meters. Number of rooms shows discrete peaks at 2, 3, and 4 rooms.}
+  \label{fig:distributions}
+\end{figure}
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{scatter_livingspace_vs_rent.png}
+  \caption{Scatter plot of livingSpace vs log-transformed totalRent (sample of 5,000 listings). Red line shows linear regression trend (R²=0.568), green dashed line shows local smooth curve revealing non-linear patterns. Heteroscedasticity visible as variance increases with size. Points semi-transparent to show density. Statistics box shows strong correlation (r=0.754, p<0.001) with slope indicating ~1.33\% rent increase per m².}
+  \Description{Scatter plot with living space on x-axis and log-total-rent on y-axis. Data points show a positive linear trend. A red regression line indicates the average increase. A green curve shows slight deviation from linearity at the extremes. The spread of points increases as living space increases.}
+  \label{fig:scatter}
+\end{figure}
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\linewidth]{phase4_model_performance.png}
+  \caption{Comprehensive XGBoost model performance analysis. Six diagnostic plots validate model quality: (1) successful hyperparameter tuning, (2) strong prediction accuracy (R² = 0.927819), (3) unbiased residuals, (4) normally distributed errors, (5) interpretable feature importance aligned with domain knowledge, and (6) best-in-class performance compared to alternative algorithms.}
+  \Description{Grid of six charts analyzing model performance. Top left shows RMSE decreasing during tuning. Top center shows predicted vs actual values on a diagonal line. Top right shows residuals scattered randomly. Bottom left shows a bell-curve histogram of residuals. Bottom center lists top features like regio1 and livingSpace. Bottom right compares XGBoost favorably against other models.}
+  \label{fig:phase4_performance}
+\end{figure}
+\clearpage
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{phase5_bias_analysis.png}
+    \caption{Bias Analysis: Model performance across 16 German federal states. Top-left: RMSE by region showing moderate variance (std=0.030). Top-right: Systematic bias detection via mean residuals - all regions within ±0.05 threshold, confirming no systematic under/over-prediction. Bottom-left: MAE in EUR showing regional price differences (best: Sachsen, worst: Niedersachsen). Bottom-right: R² scores demonstrating consistent model fit across regions (0.88-0.95).}
+    \Description{Four subplots analyzing bias across regions. First plot shows RMSE varying slightly by state. Second plot shows mean residuals are close to zero for all states. Third plot shows Mean Absolute Error in Euros. Fourth plot shows R-squared values are consistently high across all states.}
+    \label{fig:bias}
+\end{figure}
+\clearpage
+
+\FloatBarrier
+
+\subsection{Tables}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.5}
+    \caption{Complete Feature Specification: Attribute Types, Units, and Semantics}
+    \label{tab:features}
+    \begin{tabular}{p{0.18\linewidth}p{0.10\linewidth}p{0.08\linewidth}p{0.48\linewidth}}
+        \toprule
+        \textbf{Feature Name} & \textbf{Data Type} & \textbf{Unit} & \textbf{Semantic Description} \\
+        \midrule
+        balcony & boolean & - & Whether apartment has a balcony or terrace (1=yes, 0=no) \\
+    baseRent & double & EUR & Base rent in Euros (Kaltmiete, cold rent excluding utilities) \\
+    cellar & boolean & - & Basement/cellar storage available (1=yes, 0=no) \\
+    condition & string & - & Condition/quality of the apartment (categorical: first\_time\_use, mint\_condition, refurbished, etc.) \\
+    energyEfficiencyClass & string & - & Energy efficiency class rating (A+ to H, German EnEV standard) \\
+    firingTypes & string & - & Energy source for heating (categorical: oil, gas, solar, district\_heating, etc.) \\
+    floor & integer & - & Floor level of the apartment (0=ground floor, negative=basement) \\
+    garden & boolean & - & Garden or yard access (1=yes, 0=no) \\
+    geo\_plz & integer & - & German postal code (5-digit ZIP code for location) \\
+    hasKitchen & boolean & - & Whether apartment has a built-in kitchen (1=yes, 0=no) \\
+    heatingCosts & double & EUR & Monthly heating costs \\
+    heatingType & string & - & Type of heating system (categorical: central, floor, self\_contained, etc.) \\
+    interiorQual & string & - & Interior quality rating (categorical: simple, normal, sophisticated, luxury) \\
+    lastRefurbish & integer & - & Year of last major refurbishment/renovation \\
+    lift & boolean & - & Whether building has an elevator (1=yes, 0=no) \\
+    livingSpace & double & m² & Living space area of the apartment \\
+    newlyConst & boolean & - & Indicator for newly constructed property (1=yes, 0=no) \\
+    noParkSpaces & integer & - & Number of parking spaces available \\
+    noRooms & double & - & Number of rooms (including bedrooms, living room, etc.) \\
+    numberOfFloors & integer & - & Total number of floors in the building \\
+    petsAllowed & string & - & Whether pets are allowed (1=yes, 0=no, categorical) \\
+    regio1 & string & - & German federal state (Bundesland) \\
+    regio2 & string & - & Regional subdivision level 2 (district/Kreis) \\
+    regio3 & string & - & Regional subdivision level 3 (municipality/Gemeinde) \\
+    scoutId & string & - & Unique listing identifier in Immoscout24 platform \\
+    serviceCharge & double & EUR & Monthly service charge for building maintenance \\
+    thermalChar & double & kWh/m²/year & Thermal characteristics value (kWh/m²/year) \\
+    totalRent & double & EUR & Total monthly rent in Euros (Warmmiete = base + service + heating) \\
+    typeOfFlat & string & - & Type of apartment (categorical: apartment, loft, maisonette, penthouse, etc.) \\
+    yearConstructed & integer & - & Year when the building was constructed \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Algorithm Comparison - Default Parameters}
+    \label{tab:algo_comparison}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} l c c c c @{}}
+        \toprule
+        \textbf{Algorithm} & \textbf{RMSE} & \textbf{MAE} & \textbf{R²} & \textbf{Time (s)} \\
+        \midrule
+        XGBoost & 0.1540 & 0.1021 & 0.9141 & 1.83 $\star$ \\
+    LightGBM & 0.1591 & 0.1070 & 0.9083 & 1.53 \\
+    Random Forest & 0.1599 & 0.1032 & 0.9075 & 65.80 \\
+    Ridge Regression & 0.2204 & 0.1579 & 0.8242 & 0.20 \\
+        \bottomrule
+    \end{tabular*}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{XGBoost Hyperparameter Settings}
+    \label{tab:hyperparams}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} l l l @{}}
+        \toprule
+        \textbf{Parameter} & \textbf{Description} & \textbf{Value} \\
+        \midrule
+        learning\_rate & Step size shrinkage to prevent overfitting & 0.15 \\
+    max\_depth & Maximum depth of each tree & 8 \\
+    n\_estimators & Number of boosting rounds (trees) & 300 \\
+        objective & Loss function (MSE for regression) & reg:squarederror \\
+        random\_state & Seed for reproducibility & 42 \\
+        \bottomrule
+    \end{tabular*}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Performance across Train/Val/Test splits}
+    \label{tab:test_performance}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} l c c c @{}}
+        \toprule
+        \textbf{Metric} & \textbf{Training} & \textbf{Validation} & \textbf{Test} \\
+        \midrule
+        RMSE & 0.094292 & 0.141219 & 0.142156 \\
+        MAE & 0.068825 & 0.089859 & 0.089765 \\
+        R² & 0.967921 & 0.927819 & 0.927602 \\
+        \bottomrule
+    \end{tabular*}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Data Mining Success Criteria - Validation Results}
+    \label{tab:success_criteria}
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} l c c c @{}}
+        \toprule
+        \textbf{Criterion} & \textbf{Target} & \textbf{Actual} & \textbf{Status} \\
+        \midrule
+        1. MAE (EUR/month) & €100 & €73.27 & PASS \\
+        2. R² Score & 0.80 & 0.927602 & PASS \\
+        3. Train-Val RMSE Diff & 0.1\% & 49.77\% & FAIL \\
+        \bottomrule
+    \end{tabular*}
+\end{table}
+
+\FloatBarrier
 
 \end{document}
